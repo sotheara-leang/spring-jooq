@@ -25,6 +25,10 @@ ext {
 	jdkVersion = 1.8
 	logbackExtSpringVersion = '0.1.4'
 }
+
+def props = new Properties()
+
+file("src/main/resources/conf/application.properties").withInputStream { props.load(it) }
 	
 sourceCompatibility = jdkVersion
 targetCompatibility = jdkVersion
@@ -40,9 +44,9 @@ dependencyManagement {
 }
 
 flyway {
-    url = 'jdbc:h2:~/springjooq'
-    user = 'sa'
-    password = ''
+    url = props.getProperty('db.url')
+    user = props.getProperty('db.username')
+    password = props.getProperty('db.password')
 }
 
 jooq {
@@ -50,10 +54,10 @@ jooq {
    edition = 'OSS'
    sample(sourceSets.main) {
        jdbc {
-           driver = 'org.h2.Driver'
-           url = 'jdbc:h2:~/springjooq'
-           user = 'sa'
-           password = ''
+           driver = props.getProperty('db.driver')
+           url = props.getProperty('db.url')
+           user = props.getProperty('db.username')
+           password = props.getProperty('db.password')
            // ...
        }
        generator {
@@ -84,22 +88,26 @@ jooq {
 }
  
 dependencies {
-   	// logging
+   	// logback
    	compile "ch.qos.logback:logback-classic"
     compile "org.slf4j:jcl-over-slf4j"
     compile "org.logback-extensions:logback-ext-spring:$logbackExtSpringVersion"
     compile "org.codehaus.janino:janino:"
     
 	// spring
-	compile('org.springframework:spring-context') {
+	compile ('org.springframework:spring-context') {
         exclude module: 'commons-logging:commons-logging'
     }
+    compile 'org.springframework:spring-jdbc'
+    
+    // test
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.springframework:spring-test'
+    testCompile 'org.mockito:mockito-core'
     
     compile 'org.jooq:jooq'
     
     jooqRuntime 'com.h2database:h2:1.4.177'
+    compile 'commons-dbcp:commons-dbcp'
         
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.springframework:spring-test'
-    testCompile 'org.mockito:mockito-core'
 }
