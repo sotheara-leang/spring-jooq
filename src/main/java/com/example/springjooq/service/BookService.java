@@ -1,6 +1,6 @@
 package com.example.springjooq.service;
 
-import com.example.springjooq.tables.pojos.Book;
+import com.example.springjooq.jooq.tables.pojos.Book;
 
 public interface BookService {
 

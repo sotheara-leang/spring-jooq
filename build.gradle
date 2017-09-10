@@ -33,6 +33,26 @@ file("src/main/resources/conf/application.properties").withInputStream { props.l
 sourceCompatibility = jdkVersion
 targetCompatibility = jdkVersion
 
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/main/java', 'build/generated-source/java']
+        }
+        resources {
+            srcDirs = ['src/main/resources']
+        }
+    }
+    test {
+        java {
+            srcDirs = ['src/test/java']
+        }
+        resources {
+            srcDirs = ['src/test/resources']
+        }
+    }
+}
+
+
 repositories {
     jcenter()
 }
@@ -87,8 +107,8 @@ jooq {
                // ...
            }
            target {
-               packageName = 'com.example.springjooq'
-               directory = 'target/generated-sources/jooq'
+               packageName = 'com.example.springjooq.jooq'
+               directory = 'build/generated-source/java'
            }
        }
    }

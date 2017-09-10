@@ -3,9 +3,9 @@ package com.example.springjooq.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.springjooq.jooq.tables.daos.BookDao;
+import com.example.springjooq.jooq.tables.pojos.Book;
 import com.example.springjooq.service.BookService;
-import com.example.springjooq.tables.daos.BookDao;
-import com.example.springjooq.tables.pojos.Book;
 
 @Service
 public class BookServiceImple implements BookService {

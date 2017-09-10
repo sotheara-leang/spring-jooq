@@ -4,7 +4,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.example.springjooq.AbstractTestCase;
-import com.example.springjooq.tables.pojos.Book;
+import com.example.springjooq.jooq.tables.pojos.Book;
 
 public class TestBookService extends AbstractTestCase {
 
